@@ -1,20 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class TampilanLogin extends StatefulWidget {
-  const TampilanLogin({super.key});
+class TampilanRegister extends StatefulWidget {
+  const TampilanRegister({super.key});
 
   @override
-  State<TampilanLogin> createState() => _TampilanLoginState();
+  State<TampilanRegister> createState() => _TampilanRegisterState();
 }
 
-class _TampilanLoginState extends State<TampilanLogin> {
+class _TampilanRegisterState extends State<TampilanRegister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Login",
+          "Sign Up",
           style: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 24,
@@ -40,7 +40,7 @@ class _TampilanLoginState extends State<TampilanLogin> {
               ),
               const SizedBox(height: 20),
               const Text(
-                "Welcome Back!",
+                "Create your account",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
@@ -61,8 +61,24 @@ class _TampilanLoginState extends State<TampilanLogin> {
               ),
               const SizedBox(height: 16),
               const TextField(
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  prefixIcon: Icon(Icons.email, color: Colors.red),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1.0, color: Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1.0, color: Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const TextField(
                 obscureText: true,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   hintText: "Password",
                   prefixIcon: Icon(Icons.lock, color: Colors.red),
@@ -77,19 +93,19 @@ class _TampilanLoginState extends State<TampilanLogin> {
                 ),
               ),
               const SizedBox(height: 16),
-              Align(
-                alignment: Alignment.centerRight,
-                child: RichText(
-                  text: TextSpan(
-                    text: "Forgot Password?",
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontSize: 16,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pushNamed(context, '/HalamanResetPassword');
-                      },
+              const TextField(
+                obscureText: true,
+                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  hintText: "Confirm Password",
+                  prefixIcon: Icon(Icons.lock, color: Colors.red),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1.0, color: Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1.0, color: Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
                 ),
               ),
@@ -103,10 +119,10 @@ class _TampilanLoginState extends State<TampilanLogin> {
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 onPressed: () {
-                  // Aksi login
+                  // Aksi register
                 },
                 child: const Text(
-                  'Login',
+                  'Sign Up',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -124,11 +140,11 @@ class _TampilanLoginState extends State<TampilanLogin> {
               const SizedBox(height: 24),
               RichText(
                 text: TextSpan(
-                  text: "Don't have an account? ",
+                  text: "Already have an account? ",
                   style: const TextStyle(fontSize: 16, color: Colors.blue),
                   children: [
                     TextSpan(
-                      text: "Sign Up here",
+                      text: "Login here",
                       style: const TextStyle(
                         color: Colors.deepPurple,
                         decoration: TextDecoration.none,
@@ -136,7 +152,7 @@ class _TampilanLoginState extends State<TampilanLogin> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushNamed(context, '/TampilanRegister');
+                          Navigator.pushNamed(context, '/TampilanLogin');
                         },
                     ),
                   ],

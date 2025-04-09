@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TampilanHomeSupervisor extends StatefulWidget {
-  const TampilanHomeSupervisor({super.key});
+class TampilanDashboard extends StatefulWidget {
+  const TampilanDashboard({super.key});
 
   @override
-  State<TampilanHomeSupervisor> createState() => _TampilanHomeSupervisorState();
+  State<TampilanDashboard> createState() => _TampilanDashboardState();
 }
 
-class _TampilanHomeSupervisorState extends State<TampilanHomeSupervisor> {
+class _TampilanDashboardState extends State<TampilanDashboard> {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
