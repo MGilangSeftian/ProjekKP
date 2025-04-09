@@ -1,0 +1,2 @@
+E:/Semester 6/Kerja Pratik/Projek/ProjekKP/aplikasimobilepencatataneventsalestelkomselsumbagsel/android/app/.cxx/RelWithDebInfo/4w4r4i1f/arm64-v8a/CMakeFiles/edit_cache.dir
+E:/Semester 6/Kerja Pratik/Projek/ProjekKP/aplikasimobilepencatataneventsalestelkomselsumbagsel/android/app/.cxx/RelWithDebInfo/4w4r4i1f/arm64-v8a/CMakeFiles/rebuild_cache.dir
