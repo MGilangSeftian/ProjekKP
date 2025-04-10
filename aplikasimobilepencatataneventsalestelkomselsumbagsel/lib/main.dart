@@ -1,4 +1,5 @@
 // import 'package:aplikasimobilepencatataneventsalestelkomselsumbagsel/screens/supervisor/TampilanHome.dart';
+import 'package:aplikasimobilepencatataneventsalestelkomselsumbagsel/screens/TampilanForgotPassword.dart';
 import 'package:aplikasimobilepencatataneventsalestelkomselsumbagsel/screens/TampilanLogin.dart';
 import 'package:aplikasimobilepencatataneventsalestelkomselsumbagsel/screens/TampilanRegister.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/TampilanLogin': (context) => const TampilanLogin(),
         '/TampilanRegister': (context) => const TampilanRegister(),
+        '/TampilanForgotPassword' : (context) => const TampilanForgotPassword(),
       },
     );
   }
