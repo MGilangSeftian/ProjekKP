@@ -8,6 +8,8 @@ class TampilanLogin extends StatefulWidget {
   State<TampilanLogin> createState() => _TampilanLoginState();
 }
 
+bool _obscurePassword = true;
+
 class _TampilanLoginState extends State<TampilanLogin> {
   @override
   Widget build(BuildContext context) {
@@ -60,17 +62,29 @@ class _TampilanLoginState extends State<TampilanLogin> {
                 ),
               ),
               const SizedBox(height: 16),
-              const TextField(
-                obscureText: true,
+              TextField(
+                obscureText: _obscurePassword,
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
                   hintText: "Password",
-                  prefixIcon: Icon(Icons.lock, color: Colors.red),
-                  enabledBorder: OutlineInputBorder(
+                  prefixIcon: const Icon(Icons.lock, color: Colors.red),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(width: 1.0, color: Colors.red),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(width: 1.0, color: Colors.red),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
@@ -85,10 +99,11 @@ class _TampilanLoginState extends State<TampilanLogin> {
                     style: const TextStyle(
                       color: Colors.blue,
                       fontSize: 16,
+                      decoration: TextDecoration.none,
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Navigator.pushNamed(context, '/HalamanResetPassword');
+                        Navigator.pushNamed(context, '/TampilanForgotPassword');
                       },
                   ),
                 ),
