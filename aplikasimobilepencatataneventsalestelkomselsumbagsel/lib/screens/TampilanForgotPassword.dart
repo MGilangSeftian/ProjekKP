@@ -7,6 +7,8 @@ class TampilanForgotPassword extends StatefulWidget {
   State<TampilanForgotPassword> createState() => _TampilanForgotPasswordState();
 }
 
+bool _obscurePassword = true;
+
 class _TampilanForgotPasswordState extends State<TampilanForgotPassword> {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class _TampilanForgotPasswordState extends State<TampilanForgotPassword> {
               fontSize: 24,
               fontWeight: FontWeight.bold),
         ),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -63,11 +65,13 @@ class _TampilanForgotPasswordState extends State<TampilanForgotPassword> {
                   onPressed: () {
                     // aksi reset password
                   },
-                  child: Text("Reset Password",
-                  style: TextStyle(color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  ),
+                  child: Text(
+                    "Reset Password",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
