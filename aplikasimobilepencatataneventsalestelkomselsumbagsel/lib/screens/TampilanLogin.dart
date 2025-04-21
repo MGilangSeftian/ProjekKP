@@ -1,5 +1,7 @@
-import 'package:flutter/gestures.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/gestures.dart';
 
 class TampilanLogin extends StatefulWidget {
   const TampilanLogin({super.key});
@@ -8,9 +10,60 @@ class TampilanLogin extends StatefulWidget {
   State<TampilanLogin> createState() => _TampilanLoginState();
 }
 
-bool _obscurePassword = true;
-
 class _TampilanLoginState extends State<TampilanLogin> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _obscurePassword = true;
+  String? _errorMessage; // Tambahan: untuk menyimpan pesan error
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.clear();
+    _passwordController.clear();
+  }
+
+  Future<void> _login() async {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    if (username.isEmpty || password.isEmpty) {
+      setState(() {
+        _errorMessage = "Username dan password wajib diisi.";
+      });
+      return;
+    }
+
+    try {
+      var response = await http.post(
+        Uri.parse('http://10.0.2.2:8080/api_telkom/login.php'),
+        body: {
+          'username': username,
+          'password': password,
+        },
+      );
+
+      var result = jsonDecode(response.body);
+
+      if (result['status'] == 'success') {
+        _usernameController.clear();
+        _passwordController.clear();
+        setState(() {
+          _errorMessage = null; // Clear error jika login berhasil
+        });
+        Navigator.pushReplacementNamed(context, '/TampilanPengguna');
+      } else {
+        setState(() {
+          _errorMessage = result['message'];
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = "Terjadi kesalahan saat menghubungi server.";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,16 +99,17 @@ class _TampilanLoginState extends State<TampilanLogin> {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
-              const TextField(
+              TextField(
+                controller: _usernameController,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   hintText: "Username",
-                  prefixIcon: Icon(Icons.person, color: Colors.red),
-                  enabledBorder: OutlineInputBorder(
+                  prefixIcon: const Icon(Icons.person, color: Colors.red),
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(width: 1.0, color: Colors.red),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(width: 1.0, color: Colors.red),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
@@ -63,6 +117,7 @@ class _TampilanLoginState extends State<TampilanLogin> {
               ),
               const SizedBox(height: 16),
               TextField(
+                controller: _passwordController,
                 obscureText: _obscurePassword,
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
@@ -109,6 +164,21 @@ class _TampilanLoginState extends State<TampilanLogin> {
                 ),
               ),
               const SizedBox(height: 24),
+
+              // Tampilan Error Message
+              if (_errorMessage != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Text(
+                    _errorMessage!,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
@@ -117,9 +187,7 @@ class _TampilanLoginState extends State<TampilanLogin> {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
-                onPressed: () {
-                  // Aksi login
-                },
+                onPressed: _login,
                 child: const Text(
                   'Login',
                   style: TextStyle(
