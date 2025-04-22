@@ -33,15 +33,17 @@ class _TampilanLoginState extends State<TampilanLogin> {
       });
       return;
     }
+    // var response = await http.post(
+    //   Uri.parse('http://localhost:8080/api_telkom/login.php'),
+    //   headers: {'Content-Type': 'application/json'},
+    //   body: jsonEncode({'username': username, 'password': password}),
+    // );
 
     try {
       var response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/api_telkom/login.php'),
-        body: {
-          'username': username,
-          'password': password,
-        },
-      );
+          Uri.parse('http://localhost:8080/api_telkom/login.php'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({'username': username, 'password': password}));
 
       var result = jsonDecode(response.body);
 
@@ -58,6 +60,7 @@ class _TampilanLoginState extends State<TampilanLogin> {
         });
       }
     } catch (e) {
+      print(e);
       setState(() {
         _errorMessage = "Terjadi kesalahan saat menghubungi server.";
       });

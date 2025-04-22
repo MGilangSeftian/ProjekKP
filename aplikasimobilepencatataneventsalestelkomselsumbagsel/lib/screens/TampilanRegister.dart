@@ -19,7 +19,8 @@ class _TampilanRegisterState extends State<TampilanRegister> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   bool isLoading = false;
   String errorMessage = "";
@@ -53,7 +54,8 @@ class _TampilanRegisterState extends State<TampilanRegister> {
   }
 
   bool isPasswordStrong(String password) {
-    final regex = RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~])[A-Za-z\d!@#\$&*~]{8,}$');
+    final regex =
+        RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~])[A-Za-z\d!@#\$&*~]{8,}$');
     return regex.hasMatch(password);
   }
 
@@ -63,15 +65,19 @@ class _TampilanRegisterState extends State<TampilanRegister> {
       errorMessage = "";
     });
 
-    var url = Uri.parse('http://10.0.2.2:8080/api_telkom/register.php');
+    var url = Uri.parse('http://localhost:8080/api_telkom/register.php');
 
     try {
-      var response = await http.post(url, body: {
-        'username': usernameController.text,
-        'email': emailController.text,
-        'password': passwordController.text,
-        'role': selectedRole ?? '',
-      });
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'username': usernameController.text.trim(),
+          'email': emailController.text.trim(),
+          'password': passwordController.text,
+          'role': selectedRole ?? '',
+        }),
+      );
 
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -213,7 +219,9 @@ class _TampilanRegisterState extends State<TampilanRegister> {
                     });
                   },
                   icon: Icon(
-                    _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                    _obscureConfirmPassword
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: Colors.red,
                   ),
                 ),
@@ -295,7 +303,8 @@ class _TampilanRegisterState extends State<TampilanRegister> {
                   });
                 } else if (!isPasswordStrong(password)) {
                   setState(() {
-                    errorMessage = "Password harus minimal 8 karakter,\nmengandung huruf besar, angka, dan simbol.";
+                    errorMessage =
+                        "Password harus minimal 8 karakter,\nmengandung huruf besar, angka, dan simbol.";
                   });
                 } else {
                   registerUser();
