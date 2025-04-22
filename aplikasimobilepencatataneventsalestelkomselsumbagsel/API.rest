@@ -1,0 +1,18 @@
+POST http://localhost:8080/api_telkom/login.php HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Admin",
+    "password": "Admin_1@b"
+}
+
+###
+POST http://localhost:8080/api_telkom/register.php  HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Admin",
+    "password": "Admin_1@b",
+    "email" : "admin@gmail.com",
+    "role" : "GTM"
+ }
